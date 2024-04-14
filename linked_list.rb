@@ -1,31 +1,40 @@
 # represents the full list
 class LinkedList
-  attr_accessor :list, :nodes
+  attr_accessor :list, :nodes, :head
   def initialize
     @list = []
     @nodes = 0
+    @head = nil
   end
 
   def append(value)
     # add new node containing value to the end of the list
-    @list << Node.new(value)
+    if @head.nil?
+      @list << value
+      @head = Node.new(value)
+    else
+      current = @head
+      current.next_node = value
+      @list << current.next_node
+    end
     @nodes += 1
   end
 
   def prepend(value)
     # add new node containing value to the start of the list
-    @list.unshift(Node.new(value))
+    if @head.nil?
+      @head = Node.new(value)
+      @list << value
+    else
+      @list.unshift(value)
+      @head.value = @list[0]
+    end
     @nodes += 1
   end
 
   def size
     # returns the total number of nodes in the list
     @nodes
-  end
-
-  def head
-    # returns the first node in the list
-    @list[0]
   end
 
   def tail
@@ -46,25 +55,26 @@ class LinkedList
 
   def contains?(val)
     # returns true if the passed in value is in the list and otherwise returns false
-    @list.any? { |node| node.value == val }
+    @list.any?(val)
   end
 
   def find(val)
     # returns the index of the node containing value, or nil if not found
-    @list.find_index { |node| node.value == val }
+    @list.find_index(val)
   end
 
   def to_s
     # represent LinkedList objects as strings: ( value ) -> ( value ) -> ( value ) -> nil
     @list.each do |node|
-      print "( " + node.value + " ) -> "
+      print "( #{node} ) -> "
     end
+    p nil
   end
 end
 
 # represents each node of the list
 class Node
-  attr_accessor :value, :pos
+  attr_accessor :value, :next_node
 
   def initialize(value = nil, next_node = nil)
     @value = value
@@ -76,5 +86,6 @@ list = LinkedList.new
 node1 = list.append('test')
 node2 = list.append('test2')
 node3 = list.prepend('test3')
-puts "list #{list}"
+list.to_s
 p list.find('test2')
+p list.contains?('test3')
