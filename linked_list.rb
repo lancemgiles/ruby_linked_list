@@ -51,7 +51,7 @@ class LinkedList
 
   def find(value)
     # returns the index of the node containing value, or nil if not found
-    @list.find_index(value)
+    @list.find_index { |node| node.val == value }
   end
 
   def to_s
@@ -93,4 +93,4 @@ node1 = list.append('test')
 node2 = list.append('test2')
 node3 = list.prepend('test3')
 puts "list #{list}"
-p list.contains?('test2')
+p list.find('test2')
