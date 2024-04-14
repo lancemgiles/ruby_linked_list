@@ -8,19 +8,19 @@ class LinkedList
 
   def append(value)
     # add new node containing value to the end of the list
-    @list << Node.new(value, tail)
+    @list << Node.new(value)
     @nodes += 1
   end
 
   def prepend(value)
     # add new node containing value to the start of the list
-    @list.unshift(Node.new(value, head))
+    @list.unshift(Node.new(value))
     @nodes += 1
   end
 
   def size
     # returns the total number of nodes in the list
-    @list.length
+    @nodes
   end
 
   def head
@@ -63,11 +63,12 @@ end
 
 # represents each node of the list
 class Node
-  attr_accessor :val, :nxt
+  @@pos = 0
+  attr_accessor :val, :pos
 
-  def initialize(val, nxt)
+  def initialize(val)
     @val = val
-    @nxt = nxt
+    @@pos += 1
   end
 
   def value
