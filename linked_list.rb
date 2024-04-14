@@ -7,7 +7,7 @@ class LinkedList
 
   def append(value)
     # add new node containing value to the end of the list
-    @list << value
+    @list << Node.new(value, tail)
   end
 
   def prepend(value)
@@ -51,14 +51,27 @@ class LinkedList
 
   def to_s
     # represent LinkedList objects as strings: ( value ) -> ( value ) -> ( value ) -> nil
+    @list.each do |node|
+      print "( " + node.value + " ) -> "
+    end
   end
 end
 
 # represents each node of the list
 class Node
+  attr_accessor :val, :nxt
+
+  def initialize(val, nxt)
+    @val = val
+    @nxt = nxt
+  end
+
   def value
+    @val
   end
 
   def next_node
+    @nxt
   end
 end
+
