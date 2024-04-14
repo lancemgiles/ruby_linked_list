@@ -44,14 +44,14 @@ class LinkedList
     @nodes -= 1
   end
 
-  def contains?(value)
+  def contains?(val)
     # returns true if the passed in value is in the list and otherwise returns false
-    @list.any? { |node| node.val == value }
+    @list.any? { |node| node.value == val }
   end
 
-  def find(value)
+  def find(val)
     # returns the index of the node containing value, or nil if not found
-    @list.find_index { |node| node.val == value }
+    @list.find_index { |node| node.value == val }
   end
 
   def to_s
@@ -64,27 +64,11 @@ end
 
 # represents each node of the list
 class Node
-  # pos begins at 0, because the first node will be at index 0 in the list.
-  # it points to the index where the next node will be
-  # all Nodes need to know about it, so it is a class variable
-  @@pos = 0
-  attr_accessor :val, :pos
+  attr_accessor :value, :pos
 
-  def initialize(val)
-    @val = val
-    @@pos += 1
-  end
-
-  def value
-    @val
-  end
-
-  def next_node
-    @@pos
-  end
-
-  def to_s
-    @val
+  def initialize(value = nil, next_node = nil)
+    @value = value
+    @next_node = next_node
   end
 end
 
