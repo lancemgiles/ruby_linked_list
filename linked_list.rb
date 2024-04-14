@@ -1,18 +1,21 @@
 # represents the full list
 class LinkedList
-  attr_accessor :list
+  attr_accessor :list, :nodes
   def initialize
     @list = []
+    @nodes = 0
   end
 
   def append(value)
     # add new node containing value to the end of the list
     @list << Node.new(value, tail)
+    @nodes += 1
   end
 
   def prepend(value)
     # add new node containing value to the start of the list
-    @list.unshift(value)
+    @list.unshift(Node.new(value, head))
+    @nodes += 1
   end
 
   def size
@@ -38,6 +41,7 @@ class LinkedList
   def pop
     # removes the last eleent from the list
     @list.pop
+    @nodes -= 1
   end
 
   def contains?(value)
@@ -73,5 +77,15 @@ class Node
   def next_node
     @nxt
   end
+
+  def to_s
+    @val
+  end
 end
 
+list = LinkedList.new
+node1 = list.append('test')
+node2 = list.append('test2')
+
+puts list
+puts list.size
